@@ -10,7 +10,7 @@ const directions = [
 ];
 
 const knightMoves = (start, end) => {
-  if (start >= 0 && start < 8 && end >= 0 && end < 8) {
+  if (start[0] === end[0] && start[1] === end[1]) {
     console.log("You made it in 0 moves. Here's your path: ");
     console.log(start);
     return;

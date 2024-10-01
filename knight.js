@@ -38,3 +38,25 @@ const findShortestPath = (start, end) => {
     checkNextPositions(currentPosition, currentPath, queue, visited);
   }
 };
+
+const checkNextPositions = (currentPosition, currentPath, queue, visited) => {
+  for (const move of directions) {
+    const nextPosition = [
+      currentPosition[0] + move[0],
+      currentPosition[1] + move[1],
+    ];
+
+    if (
+      nextPosition[0] >= 0 &&
+      nextPosition[0] < 8 &&
+      nextPosition[1] >= 0 &&
+      nextPosition[1] < 8 &&
+      !visited.has(nextPosition.toString())
+    ) {
+      visited.add(nextPosition.toString());
+      queue.push([...currentPath, nextPosition]);
+    }
+  }
+};
+
+export default knightMoves;

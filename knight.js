@@ -10,7 +10,7 @@ const directions = [
 ];
 
 const knightMoves = (start, end) => {
-  if (start[0] === end[0] && start[1] === end[1]) {
+  if (arePositionsEqual(start, end)) {
     console.log("You made it in 0 moves. Here's your path: ");
     console.log(start);
     return;
@@ -20,6 +20,14 @@ const knightMoves = (start, end) => {
 
   console.log(`You made it in ${path.length - 1} moves! Here's your path:`);
   path.forEach((position) => console.log(position));
+};
+
+const arePositionsEqual = (pos1, pos2) => {
+  return pos1[0] === pos2[0] && pos1[1] === pos2[1];
+};
+
+const isValidPosition = ([x, y]) => {
+  return x >= 0 && x < 8 && y >= 0 && y < 8;
 };
 
 const findShortestPath = (start, end) => {
@@ -32,8 +40,7 @@ const findShortestPath = (start, end) => {
     const currentPath = queue.shift();
     const currentPosition = currentPath[currentPath.length - 1];
 
-    if (currentPosition[0] === end[0] && currentPosition[1] === end[1])
-      return currentPath;
+    if (arePositionsEqual(currentPosition, end)) return currentPath;
 
     checkNextPositions(currentPosition, currentPath, queue, visited);
   }
@@ -47,10 +54,7 @@ const checkNextPositions = (currentPosition, currentPath, queue, visited) => {
     ];
 
     if (
-      nextPosition[0] >= 0 &&
-      nextPosition[0] < 8 &&
-      nextPosition[1] >= 0 &&
-      nextPosition[1] < 8 &&
+      isValidPosition(nextPosition) &&
       !visited.has(nextPosition.toString())
     ) {
       visited.add(nextPosition.toString());
